@@ -21,28 +21,33 @@
 =============================================================================*/
 
 #include <memory>
+#include <iostream>
 
 #include "cppmicroservices/BundleActivator.h"
 #include "cppmicroservices/BundleContext.h"
 
-#include "cppmicroservices/shellservice/ShellService.h"
+//#include "cppmicroservices/shellservice/ShellService.h"
 
 namespace cppmicroservices {
 
-class ShellActivator : public BundleActivator
+class FileInstallActivator : public BundleActivator
 {
 public:
-  void Start(BundleContext context) override
+  void Start(BundleContext /*context*/) override
   {
-    m_ShellService = std::make_shared<ShellService>();
-    context.RegisterService<ShellService>(m_ShellService);
+    std::cout << "Start() of FileInstall called..." << std::endl;
+    //m_ShellService = std::make_shared<ShellService>();
+    //context.RegisterService<ShellService>(m_ShellService);
   }
 
-  void Stop(BundleContext) override {}
+  void Stop(BundleContext) override 
+  {
+    std::cout << "Stop() of FileInstall called..." << std::endl;
+  }
 
 private:
-  std::shared_ptr<ShellService> m_ShellService;
+  //std::shared_ptr<ShellService> m_ShellService;
 };
 }
 
-CPPMICROSERVICES_EXPORT_BUNDLE_ACTIVATOR(cppmicroservices::ShellActivator)
+CPPMICROSERVICES_EXPORT_BUNDLE_ACTIVATOR(cppmicroservices::FileInstallActivator)
