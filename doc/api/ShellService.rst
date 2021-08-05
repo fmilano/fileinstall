@@ -1,0 +1,4 @@
+FileInstall
+------------
+
+.. doxygenclass:: cppmicroservices::FileInstall

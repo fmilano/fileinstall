@@ -1,0 +1,6 @@
+{
+  "bundle.symbolic_name" : "usFileInstall",
+  "bundle.name" : "C++ Micro Services File Install Agent",
+  "bundle.version" : "0.1.0",
+  "bundle.activator" : true
+}
