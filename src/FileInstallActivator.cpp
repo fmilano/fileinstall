@@ -22,13 +22,32 @@
 
 #include <memory>
 #include <iostream>
+#include <thread>
 
 #include "cppmicroservices/BundleActivator.h"
 #include "cppmicroservices/BundleContext.h"
 
-//#include "cppmicroservices/shellservice/ShellService.h"
-
 namespace cppmicroservices {
+
+class DirectoryWatcher
+{
+  DirectoryWatcher() 
+  {
+
+  }
+
+  void start()
+  {
+
+  }
+
+  void stop()
+  {
+
+  }
+
+  std::thread m_thread;
+}
 
 class FileInstallActivator : public BundleActivator
 {
