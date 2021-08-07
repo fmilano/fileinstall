@@ -20,40 +20,14 @@
 
 =============================================================================*/
 
-#ifndef CPPMICROSERVICES_SHELLSERVICE_H
-#define CPPMICROSERVICES_SHELLSERVICE_H
-
-#include "cppmicroservices/GlobalConfig.h"
-
-#include "cppmicroservices/shellservice/ShellServiceExport.h"
-
-#include <memory>
-#include <string>
-#include <vector>
+#include "DirectoryWatcher.h"
 
 namespace cppmicroservices {
 
-class BundleResource;
+DirectoryWatcher::DirectoryWatcher() {}
 
-class US_ShellService_EXPORT ShellService
-{
-public:
-  ShellService();
-  ~ShellService();
+void DirectoryWatcher::Start() {}
 
-  void ExecuteCommand(const std::string& cmd);
+void DirectoryWatcher::Stop() {}
 
-  std::vector<std::string> GetCompletions(const std::string& in);
-
-private:
-  ShellService(const ShellService&);
-  ShellService& operator=(const ShellService&);
-
-  void LoadSchemeResource(const BundleResource& res);
-
-  struct Impl;
-  std::unique_ptr<Impl> d;
-};
 }
-
-#endif // CPPMICROSERVICES_SHELLSERVICE_H

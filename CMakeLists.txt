@@ -1,14 +1,14 @@
 set(_srcs
   src/FileInstallActivator.cpp
- # src/FileInstall.cpp
+  src/DirectoryWatcher.cpp
 )
 
 
 set(_private_headers
+  src/DirectoryWatcher.h  
 )
 
 set(_public_headers
-  #include/cppmicroservices/shellservice/FileInstall.h
 )
 
 set(_resources
