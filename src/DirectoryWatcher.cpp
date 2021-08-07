@@ -20,14 +20,42 @@
 
 =============================================================================*/
 
+#include <iostream>
+#include <filesystem>
+#include <chrono>
+
 #include "DirectoryWatcher.h"
 
 namespace cppmicroservices {
 
+using namespace std::chrono_literals;
+
 DirectoryWatcher::DirectoryWatcher() {}
 
-void DirectoryWatcher::Start() {}
+void DirectoryWatcher::Start()
+{
+  m_stopSignaled = false;
+  m_thread = std::thread(&DirectoryWatcher::Run, this);
+}
 
-void DirectoryWatcher::Stop() {}
+void DirectoryWatcher::Stop()
+{
+  m_stopSignaled = true;
+  m_thread.join();
+}
+
+void DirectoryWatcher::Run()
+{
+  try {
+
+    while (!m_stopSignaled) {
+        std::cout << "thread test" << '\n';
+        std::this_thread::sleep_for(400ms);
+    }
+  } catch (const std::exception& e) {
+    std::cerr << e.what() << '\n';
+  } catch (...) {
+  }
+}
 
 }

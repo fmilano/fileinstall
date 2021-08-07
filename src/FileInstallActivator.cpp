@@ -26,6 +26,8 @@
 #include "cppmicroservices/BundleActivator.h"
 #include "cppmicroservices/BundleContext.h"
 
+#include "DirectoryWatcher.h"
+
 namespace cppmicroservices {
 
 class FileInstallActivator : public BundleActivator
@@ -34,6 +36,7 @@ public:
   void Start(BundleContext /*context*/) override
   {
     std::cout << "Start() of FileInstall called..." << std::endl;
+    m_dirWatcher.Start();
     //m_ShellService = std::make_shared<ShellService>();
     //context.RegisterService<ShellService>(m_ShellService);
   }
@@ -41,10 +44,12 @@ public:
   void Stop(BundleContext) override
   {
     std::cout << "Stop() of FileInstall called..." << std::endl;
+    m_dirWatcher.Stop();
   }
 
 private:
   //std::shared_ptr<ShellService> m_ShellService;
+  DirectoryWatcher m_dirWatcher;
 };
 }
 

@@ -21,18 +21,25 @@
 =============================================================================*/
 
 #include <thread>
+#include <atomic>
 
 namespace cppmicroservices {
 
 class DirectoryWatcher
 {
+public:
   DirectoryWatcher();
 
   void Start(); 
 
-  void Stop(); 
+  void Stop();
+
+private:
+
+  void Run();
 
   std::thread m_thread;
+  std::atomic<bool> m_stopSignaled;
 };
 
 }
