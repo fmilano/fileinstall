@@ -20,9 +20,10 @@
 
 =============================================================================*/
 
-#include <iostream>
-#include <filesystem>
 #include <chrono>
+#include <filesystem>
+#include <iostream>
+#include <set>
 
 #include "DirectoryWatcher.h"
 
@@ -47,14 +48,44 @@ void DirectoryWatcher::Stop()
 void DirectoryWatcher::Run()
 {
   try {
+    std::set<std::filesystem::path> previous_files;
+    std::set<std::filesystem::path> current_files;
+
+    const std::filesystem::path watched_dir{ "/home/federico/work/test/" };
 
     while (!m_stopSignaled) {
-        std::cout << "thread test" << '\n';
-        std::this_thread::sleep_for(400ms);
+
+      for (auto const& dir_entry :
+           std::filesystem::directory_iterator{ watched_dir }) {
+
+        if (dir_entry.is_regular_file()) {
+          current_files.insert(dir_entry.path());
+        }
+      }
+
+      for (auto const& curr_file : current_files) {
+        if (previous_files.count(curr_file) == 0)
+        {
+          std::cout << "New file " << curr_file << '\n';
+        }
+      }
+
+      for (auto const& prev_file : previous_files) {
+        if (current_files.count(prev_file) == 0)
+        {
+          std::cout << "Deleted file " << prev_file << '\n';
+        }
+      }
+
+      previous_files = current_files;
+      current_files.clear();
+
+      std::this_thread::sleep_for(400ms);
     }
   } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
   } catch (...) {
+    std::cerr << "An unexpected exception occurred.\n";
   }
 }
 
